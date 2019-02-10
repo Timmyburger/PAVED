@@ -3,7 +3,7 @@ This is a repository for all the software that will run on the Personal Autonomo
 
 ## ROS
 ### Version: Kinetic Kame
-### Linux Version: Ubuntu 16.04
+### Linux Version: Ubuntu 16.04 (Xenial)
 
 This repository master will content the latest STABLE version of the ROS architecture running on PAVED.
 
