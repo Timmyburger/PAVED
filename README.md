@@ -8,7 +8,7 @@ This is a repository for all the software that will run on the Personal Autonomo
 This repository master contains the latest *STABLE* version of the ROS architecture running on PAVED.
 
 ### Installation:
-To run on the dedicated laptop, copy the entire "ROS" folder to the "home" directory and the "ROS_Launch" and associated startup and shutdown shortcuts to the "Desktop" directory.
+To run on the dedicated laptop, copy the entire "ROS" folder to the "home" directory. Copy the "ROS_Launch" (contains associated startup and shutdown shortcuts) and the "Arduino" folders to the "Desktop" directory.
 
 ### Current ROS Capabilities:
 - Receive simple input from LabJack (potentiometer connected to AIN0) and publish to topics/nodes.
