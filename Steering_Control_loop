@@ -1,0 +1,60 @@
+#include <Servo.h>
+Servo motor;
+
+#define outputA 6
+#define outputB 7
+
+ int desired_position=500;
+ float kp=.1;
+ float kv=.0001;
+ int counter =0;
+ int aState;
+ int aLastState;
+ float tau;
+ float error=0;
+ float sum_error=0;
+
+long previousMillis = 0; 
+long interval = 500;  
+int tftrefresh = 0;
+ 
+
+void setup() {
+  motor.attach(9);
+  
+  pinMode (outputA,INPUT);
+  pinMode (outputB,INPUT);
+
+  Serial.begin (500000);
+
+  aLastState = digitalRead(outputA);
+}
+
+void loop() {
+  aState= digitalRead (outputA);
+  if (aState != aLastState)
+  {
+    if(digitalRead(outputB) != aState)
+    {
+      counter++;
+    }
+    else
+    {
+      counter --;
+    }
+    Serial.println(counter);
+  }
+  aLastState= aState;
+  error=desired_position-counter;
+
+  if(millis() - previousMillis > interval) 
+  { 
+         previousMillis = millis();  
+         sum_error=sum_error+error;
+         Serial.println(counter);
+         Serial.print("tau ");
+         Serial.println(tau);
+  }
+  tau=kp*error+kv*sum_error+90;
+  motor.write(tau);
+}
