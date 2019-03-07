@@ -11,7 +11,6 @@ String desired_position="0";
 int counter =0;
 int aState;
 int aLastState;
-float tau;
 float error=0;
 float sum_error=0;
 
@@ -88,6 +87,9 @@ void controlLoop()
 {
   float kp=.1;
   float kv=.0001;
+  float tau;
+  float cmdTau;
+  int saturation=10;
 
     aState= digitalRead (outputA);
   if (aState != aLastState)
@@ -109,16 +111,13 @@ void controlLoop()
          previousMillis = millis();  
          sum_error=sum_error+error;
   }
-  if (error>0)
-  {
-    digitalWrite(LED_BUILTIN, HIGH);
-    counter++;
-    delay(100);
+  tau=kp*error+kv*sum_error;
+  if(tau<-saturation){
+    tau=-saturation;
   }
-  else
-  {
-    digitalWrite(LED_BUILTIN, LOW);
+  else if(tau>saturation){
+    tau=saturation;
   }
-  //tau=kp*error+kv*sum_error+90;
-  //motor.write(tau);
+  cmdTau=tau+90;
+  motor.write(cmdTau);
 }
